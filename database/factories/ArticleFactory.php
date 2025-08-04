@@ -18,60 +18,7 @@ class ArticleFactory extends Factory
         $categories = ['technology', 'politics', 'business', 'sports', 'entertainment', 'science', 'health'];
 
         return [
-            'title' => $this->faker->sentence()<?php
-
-            return [
-            
-                /*
-                |--------------------------------------------------------------------------
-                | Third Party Services
-                |--------------------------------------------------------------------------
-                |
-                | This file is for storing the credentials for third party services such
-                | as Mailgun, Postmark, AWS and more. This file provides the de facto
-                | location for this type of information, allowing packages to have
-                | a conventional file to locate the various service credentials.
-                |
-                */
-            
-                'postmark' => [
-                    'token' => env('POSTMARK_TOKEN'),
-                ],
-            
-                'resend' => [
-                    'key' => env('RESEND_KEY'),
-                ],
-            
-                'ses' => [
-                    'key' => env('AWS_ACCESS_KEY_ID'),
-                    'secret' => env('AWS_SECRET_ACCESS_KEY'),
-                    'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
-                ],
-            
-                'slack' => [
-                    'notifications' => [
-                        'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
-                        'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
-                    ],
-                ],
-            
-                'newsapi' => [
-                    'key' => env('NEWSAPI_KEY'),
-                    'url' => env('NEWSAPI_URL', 'https://newsapi.org/v2/top-headlines'),
-                ],
-            
-                'guardian' => [
-                    'key' => env('GUARDIAN_KEY'),
-                    'url' => env('GUARDIAN_URL', 'https://content.guardianapis.com/search'),
-                ],
-            
-                'nyt' => [
-                    'key' => env('NYT_KEY'),
-                    'url' => env('NYT_URL', 'https://api.nytimes.com/svc/news/v3/content/all/all.json'),
-                ],
-            
-            ];
-            ,
+            'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
             'author' => $this->faker->name(),
             'source' => $this->faker->randomElement($sources),
