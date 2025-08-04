@@ -34,18 +34,20 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
-    'newsapi' => [
-    'key' => env('NEWSAPI_KEY'),
-    'url' => env('NEWSAPI_URL'),
-],
 
-'guardian' => [
-    'key' => env('GUARDIAN_KEY'),
-    'url' => env('GUARDIAN_URL'),
-],
+    'newsapi' => [
+        'key' => env('NEWSAPI_KEY'),
+        'url' => env('NEWSAPI_URL', 'https://newsapi.org/v2/top-headlines'),
+    ],
+
+    'guardian' => [
+        'key' => env('GUARDIAN_KEY'),
+        'url' => env('GUARDIAN_URL', 'https://content.guardianapis.com/search'),
+    ],
+
     'nyt' => [
         'key' => env('NYT_KEY'),
-        'url' => env('NYT_URL'),
+        'url' => env('NYT_URL', 'https://api.nytimes.com/svc/news/v3/content/all/all.json'),
     ],
 
 ];
