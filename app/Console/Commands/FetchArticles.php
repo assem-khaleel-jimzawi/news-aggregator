@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Services\NewsAggregatorService;
 use App\Repositories\ArticleRepository;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class FetchArticles
@@ -12,7 +13,6 @@ use App\Repositories\ArticleRepository;
  * This command fetches the latest articles from various news providers
  * and stores them in the database.
  */
-
 class FetchArticles extends Command
 {
     protected $signature = 'news:fetch';
@@ -34,12 +34,28 @@ class FetchArticles extends Command
 
         try {
             $articles = $this->aggregator->fetchLatestArticles();
-            
-            $this->info('Articles updated successfully!');
-            $this->info('Total articles fetched: ' . count($articles));
-            
+
+            if (empty($articles)) {
+                $this->warn('No articles were fetched from providers.');
+                return 0;
+            }
+
+            $results = $this->repository->storeMany($articles);
+
+            $this->info('Articles processed successfully!');
+            $this->info('Total fetched: ' . $results['fetched']);
+            $this->info('Newly saved: ' . $results['saved']);
+            $this->info('Duplicates skipped: ' . $results['skipped']);
+
+            if ($results['errors']) {
+                $this->error('Errors occurred during saving: ' . implode(', ', $results['errors']));
+            }
+
         } catch (\Exception $e) {
-            $this->error('Error fetching articles: ' . $e->getMessage());
+            $this->error('Error fetching or saving articles: ' . $e->getMessage());
+            Log::error('News Fetch Command Failed', [
+                'exception' => $e
+            ]);
             return 1;
         }
 
