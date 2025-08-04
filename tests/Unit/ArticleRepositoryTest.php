@@ -28,20 +28,20 @@ class ArticleRepositoryTest extends TestCase
                 'author' => 'John',
                 'source' => 'NewsAPI',
                 'category' => 'general',
-                'url' => 'https://example.com/article1',
+                'url' => 'https://innoscripta.com/article1',
                 'published_at' => now(),
             ]
         ];
 
         $this->repository->storeMany($data);
 
-        $this->assertDatabaseHas('articles', ['url' => 'https://example.com/article1']);
+        $this->assertDatabaseHas('articles', ['url' => 'https://innoscripta.com/article1']);
     }
 
     public function test_it_updates_existing_article_by_url()
     {
         Article::factory()->create([
-            'url' => 'https://example.com/article1',
+            'url' => 'https://innoscripta.com/article1',
             'title' => 'Old Title',
         ]);
 
@@ -52,7 +52,7 @@ class ArticleRepositoryTest extends TestCase
                 'author' => 'John',
                 'source' => 'NewsAPI',
                 'category' => 'general',
-                'url' => 'https://example.com/article1',
+                'url' => 'https://innoscripta.com/article1',
                 'published_at' => now(),
             ]
         ];
@@ -60,7 +60,7 @@ class ArticleRepositoryTest extends TestCase
         $this->repository->storeMany($data);
 
         $this->assertDatabaseHas('articles', [
-            'url' => 'https://example.com/article1',
+            'url' => 'https://innoscripta.com/article1',
             'title' => 'New Title',
         ]);
     }
@@ -74,7 +74,7 @@ class ArticleRepositoryTest extends TestCase
                 'author' => 'Author',
                 'source' => 'NewsAPI',
                 'category' => 'general',
-                'url' => 'https://example.com/unique-article',
+                'url' => 'https://innoscripta.com/unique-article',
                 'published_at' => now(),
             ]
         ];
@@ -82,6 +82,6 @@ class ArticleRepositoryTest extends TestCase
         $this->repository->storeMany($data);
         $this->repository->storeMany($data);
 
-        $this->assertEquals(1, Article::where('url', 'https://example.com/unique-article')->count());
+        $this->assertEquals(1, Article::where('url', 'https://innoscripta.com/unique-article')->count());
     }
 }
